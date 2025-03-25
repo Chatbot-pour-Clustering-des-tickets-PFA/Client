@@ -1,0 +1,28 @@
+<div class="chat-container">
+  <div class="chat-header">
+    <h2>Support Chatbot</h2>
+    <p class="subtitle">Ask me anything about your tickets</p>
+  </div>
+
+  <div class="messages-container" #scrollContainer>
+    <div *ngFor="let message of messages"
+         class="message"
+         [ngClass]="{'user-message': message.sender === 'user', 'bot-message': message.sender === 'bot'}">
+      <div class="message-content">{{ message.content }}</div>
+      <div class="message-timestamp">{{ message.timestamp | date:'shortTime' }}</div>
+    </div>
+  </div>
+
+  <div class="input-container">
+    <input type="text"
+           [(ngModel)]="newMessage"
+           (keyup.enter)="sendMessage()"
+           placeholder="Type your message here..."
+           class="message-input">
+    <button (click)="sendMessage()"
+            class="send-button"
+            [disabled]="!newMessage.trim()">
+      Send
+    </button>
+  </div>
+</div>
