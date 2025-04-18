@@ -1,17 +1,39 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';       // <-- For ngForm, ngModel
-import { CommonModule } from '@angular/common';    
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']  // optional, or you can use inline styles
+  standalone: true,
+  imports: [FormsModule, CommonModule, HttpClientModule],
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  ensias = 'assets/logo.jpg';
+
+  // Login form model
+  credentials = {
+    username: '',
+    password: ''
+  };
+
+  constructor(private http: HttpClient) {}
 
   handleLogin() {
-    // Your login logic goes here
-    console.log("Login submitted");
+    console.log(this.credentials);
+
+    this.http.post('http://localhost:8080/authenticate', this.credentials, { responseType: 'text' })
+      .subscribe({
+        next: (token) => {
+          console.log('JWT received:', token);
+          localStorage.setItem('jwt', token);  // save token for future use
+          // Optionally navigate to a protected route here
+        },
+        error: (err) => {
+          console.error('Login failed:', err);
+        }
+      });
   }
 }

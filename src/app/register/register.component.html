@@ -8,19 +8,28 @@
   >
     <img src="/logo.jpg" alt="" style="height: 80px; width: 70px; margin-left: 5px;" />
     <h2 style="margin-bottom: 20px; color: Coral; font-size: 1.4rem; font-weight: bold;">Sign up</h2>
-    <form>
+    <form (ngSubmit)="handleSignup()">
       <div class="input-box" style="margin-bottom: 15px;">
         <input
           type="text"
           name="firstname"
           placeholder="First name"
-          required
+          required [(ngModel)]="user.firstname" 
           style="width: 80%; padding: 10px; border: 1px solid #d1d5db; border-radius: 4px; font-size: 16px; margin-bottom: 15px;"
         />
         <input
           type="text"
           name="lastname"
           placeholder="Last name"
+          [(ngModel)]="user.lastname"
+          required
+          style="width: 80%; padding: 10px; border: 1px solid #d1d5db; border-radius: 4px; font-size: 16px; margin-bottom: 15px;"
+        />
+        <input
+          type="text"
+          name="username"
+          placeholder="Username"
+          [(ngModel)]="user.username"
           required
           style="width: 80%; padding: 10px; border: 1px solid #d1d5db; border-radius: 4px; font-size: 16px; margin-bottom: 15px;"
         />
@@ -28,6 +37,7 @@
           type="email"
           name="email"
           placeholder="Email"
+          [(ngModel)]="user.email"
           required
           style="width: 80%; padding: 10px; border: 1px solid #d1d5db; border-radius: 4px; font-size: 16px;"
         />
@@ -38,6 +48,7 @@
           type="password"
           name="password"
           placeholder="Password"
+          [(ngModel)]="user.password"
           required
           style="width: 80%; padding: 10px; border: 1px solid #d1d5db; border-radius: 4px; font-size: 16px;"
         />
@@ -48,6 +59,7 @@
           id="role"
           name="role"
           required
+          [(ngModel)]="user.role"
           style="width: 85%; padding: 10px; border: 1px solid #d1d5db; border-radius: 4px; font-size: 16px;"
         >
           <option value="">Select Role</option>
